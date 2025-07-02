@@ -11,20 +11,20 @@ const App = () => {
   const [userId, setUserId] = useState(null);
   const [tickets, setTickets] = useState([]);
   const [newTicketTitle, setNewTicketTitle] = useState('');
-  const [newTicketDescription, setNewTicketDescription] = '';
+  const [newTicketDescription, setNewTicketDescription] = useState('');
   const [newTicketStatus, setNewTicketStatus] = useState('Open');
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [modalMessage, setModalMessage] = '';
+  const [modalMessage, setModalMessage] = useState('');
   const [ticketToEdit, setTicketToEdit] = useState(null);
   const [editTicketTitle, setEditTicketTitle] = useState('');
-  const [editTicketDescription, setEditTicketDescription] = '';
-  const [editTicketStatus, setEditTicketStatus] = '';
+  const [editTicketDescription, setEditTicketDescription] = useState('');
+  const [editTicketStatus, setEditTicketStatus] = useState('');
 
   // --- YOUR ACTUAL FIREBASE CONFIGURATION ---
   // This has been replaced with the values from your screenshot.
   const firebaseConfig = {
-    apiKey: "AIzaSyB31G4bV6U27M7K37bM6X7k37Y7n7H3", // Replaced with your apiKey
+    apiKey: "AIzaSyD0dDBOOUC77Fh4k0t8dnCKfw77x97Nd3k", // Replaced with your apiKey
     authDomain: "ticketing-software-dcdde.firebaseapp.com", // Replaced with your authDomain
     projectId: "ticketing-software-dcdde", // Replaced with your projectId
     storageBucket: "ticketing-software-dcdde.appspot.com", // Replaced with your storageBucket
@@ -235,15 +235,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 font-sans text-gray-800 p-4 sm:p-6 lg:p-8">
-      {/* Tailwind CSS CDN */}
-      <script src="https://cdn.tailwindcss.com"></script>
-      {/* Inter font */}
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-      <style>{`
-        body {
-          font-family: 'Inter', sans-serif;
-        }
-      `}</style>
+      {/* The Tailwind CSS CDN and Font links have been moved to public/index.html */}
 
       {/* Header */}
       <header className="mb-8 text-center">
