@@ -101,7 +101,7 @@ The application will open in your browser (usually at http://localhost:3000).
 
 - Use the "Edit" and "Delete" buttons next to each ticket to manage them.
 
-<h2>Live Demo<</h2>
+<h2>Live Demo</h2>
   
 - You can view a live demo of the application deployed on GitHub Pages here:
 - https://mattywashere.github.io/ticketing-software
