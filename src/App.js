@@ -24,7 +24,7 @@ const App = () => {
   // --- YOUR ACTUAL FIREBASE CONFIGURATION ---
   // This has been replaced with the values from your screenshot.
   const firebaseConfig = {
-    apiKey: "AIzaSyD0dDBOOUC77Fh4k0t8dnCKfw77x97Nd3k", // Replaced with your apiKey
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY, // Put your Google Console API Key in the .env file
     authDomain: "ticketing-software-dcdde.firebaseapp.com", // Replaced with your authDomain
     projectId: "ticketing-software-dcdde", // Replaced with your projectId
     storageBucket: "ticketing-software-dcdde.appspot.com", // Replaced with your storageBucket
