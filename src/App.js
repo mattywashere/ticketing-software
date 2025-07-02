@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { getAuth, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
+import { getFirestore, collection, addDoc, onSnapshot, query, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 
 // Main App component
 const App = () => {
@@ -11,23 +11,32 @@ const App = () => {
   const [userId, setUserId] = useState(null);
   const [tickets, setTickets] = useState([]);
   const [newTicketTitle, setNewTicketTitle] = useState('');
-  const [newTicketDescription, setNewTicketDescription] = useState('');
+  const [newTicketDescription, setNewTicketDescription] = '';
   const [newTicketStatus, setNewTicketStatus] = useState('Open');
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState('');
+  const [modalMessage, setModalMessage] = '';
   const [ticketToEdit, setTicketToEdit] = useState(null);
   const [editTicketTitle, setEditTicketTitle] = useState('');
-  const [editTicketDescription, setEditTicketDescription] = useState('');
-  const [editTicketStatus, setEditTicketStatus] = useState('');
+  const [editTicketDescription, setEditTicketDescription] = '';
+  const [editTicketStatus, setEditTicketStatus] = '';
+
+  // --- YOUR ACTUAL FIREBASE CONFIGURATION ---
+  // This has been replaced with the values from your screenshot.
+  const firebaseConfig = {
+    apiKey: "AIzaSyB31G4bV6U27M7K37bM6X7k37Y7n7H3", // Replaced with your apiKey
+    authDomain: "ticketing-software-dcdde.firebaseapp.com", // Replaced with your authDomain
+    projectId: "ticketing-software-dcdde", // Replaced with your projectId
+    storageBucket: "ticketing-software-dcdde.appspot.com", // Replaced with your storageBucket
+    messagingSenderId: "793788949793", // Replaced with your messagingSenderId
+    appId: "1:793788949793:web:7623c120c816d57fce8d", // Replaced with your appId
+    measurementId: "G-920S2YJ26X" // Replaced with your measurementId
+  };
+  // --- END YOUR ACTUAL FIREBASE CONFIGURATION ---
 
   // Initialize Firebase and set up authentication
   useEffect(() => {
     try {
-      // Get Firebase config and app ID from global variables
-      const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-      const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-
       // Initialize Firebase app
       const app = initializeApp(firebaseConfig);
       const firestoreDb = getFirestore(app);
@@ -36,14 +45,10 @@ const App = () => {
       setDb(firestoreDb);
       setAuth(firebaseAuth);
 
-      // Sign in with custom token or anonymously
+      // Sign in anonymously for local development/deployment
       const signIn = async () => {
         try {
-          if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-            await signInWithCustomToken(firebaseAuth, __initial_auth_token);
-          } else {
-            await signInAnonymously(firebaseAuth);
-          }
+          await signInAnonymously(firebaseAuth);
         } catch (error) {
           console.error("Firebase authentication error:", error);
           showUserMessage(`Authentication failed: ${error.message}`);
@@ -75,9 +80,9 @@ const App = () => {
   useEffect(() => {
     if (db && userId) {
       // Construct the collection path for public data
-      const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-      const ticketsCollectionRef = collection(db, `artifacts/${appId}/public/data/tickets`);
-      const q = query(ticketsCollectionRef); // No orderBy to avoid index issues
+      const currentAppId = firebaseConfig.projectId;
+      const ticketsCollectionRef = collection(db, `artifacts/${currentAppId}/public/data/tickets`);
+      const q = query(ticketsCollectionRef);
 
       // Listen for real-time updates to the tickets collection
       const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -85,7 +90,7 @@ const App = () => {
           id: doc.id,
           ...doc.data()
         }));
-        // Sort tickets by creation date in memory, as orderBy is avoided in query
+        // Sort tickets by creation date in memory
         fetchedTickets.sort((a, b) => (b.createdAt?.toDate() || 0) - (a.createdAt?.toDate() || 0));
         setTickets(fetchedTickets);
       }, (error) => {
@@ -96,7 +101,7 @@ const App = () => {
       // Cleanup function
       return () => unsubscribe();
     }
-  }, [db, userId]);
+  }, [db, userId, firebaseConfig.projectId]);
 
   // Function to show a user message in a modal
   const showUserMessage = (message) => {
@@ -123,8 +128,8 @@ const App = () => {
     }
 
     try {
-      const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-      await addDoc(collection(db, `artifacts/${appId}/public/data/tickets`), {
+      const currentAppId = firebaseConfig.projectId;
+      await addDoc(collection(db, `artifacts/${currentAppId}/public/data/tickets`), {
         title: newTicketTitle,
         description: newTicketDescription,
         status: newTicketStatus,
@@ -147,8 +152,8 @@ const App = () => {
     setEditTicketTitle(ticket.title);
     setEditTicketDescription(ticket.description);
     setEditTicketStatus(ticket.status);
-    setShowModal(true); // Reuse modal for editing
-    setModalMessage("Edit Ticket"); // Change modal message
+    setShowModal(true);
+    setModalMessage("Edit Ticket");
   };
 
   // Handle updating a ticket
@@ -164,8 +169,8 @@ const App = () => {
     }
 
     try {
-      const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-      const ticketDocRef = doc(db, `artifacts/${appId}/public/data/tickets`, ticketToEdit.id);
+      const currentAppId = firebaseConfig.projectId;
+      const ticketDocRef = doc(db, `artifacts/${currentAppId}/public/data/tickets`, ticketToEdit.id);
       await updateDoc(ticketDocRef, {
         title: editTicketTitle,
         description: editTicketDescription,
@@ -195,8 +200,8 @@ const App = () => {
           <button
             onClick={async () => {
               try {
-                const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-                await deleteDoc(doc(db, `artifacts/${appId}/public/data/tickets`, ticketId));
+                const currentAppId = firebaseConfig.projectId;
+                await deleteDoc(doc(db, `artifacts/${currentAppId}/public/data/tickets`, ticketId));
                 showUserMessage("Ticket deleted successfully!");
                 closeModal();
               } catch (e) {
