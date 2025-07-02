@@ -1,70 +1,107 @@
-# Getting Started with Create React App
+<h1>Ticketing Software</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h2> Project Overview </h2>
+This is a responsive web-based ticketing software designed to streamline the process of creating, viewing, managing, and tracking support tickets. It provides a user-friendly interface for submitting new issues or requests and offers real-time updates on ticket statuses. This project demonstrates proficiency in modern web development practices, including front-end development with React and back-end data persistence with Firebase.
 
-## Available Scripts
+<h2>Features</h2>
 
-In the project directory, you can run:
+- Ticket Creation: Users can easily create new tickets by providing a title, detailed description, and initial status (Open).
 
-### `npm start`
+- Real-time Ticket Listing: All created tickets are displayed in a dynamic list, updated in real-time as new tickets are added or existing ones are modified.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Ticket Management:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Edit Functionality: Users can update the title, description, and status of existing tickets.
 
-### `npm test`
+- Delete Functionality: Tickets can be removed from the system.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Persistent Data Storage: All ticket data is securely stored and managed using Google Firebase Firestore, ensuring data integrity and availability.
 
-### `npm run build`
+- Anonymous Authentication: Utilizes Firebase Anonymous Authentication for seamless user access without requiring explicit sign-ups, demonstrating basic authentication integration.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Responsive Design: The application is built with Tailwind CSS, ensuring a clean, modern, and fully responsive user interface that adapts to various screen sizes (desktop, tablet, mobile).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- User ID Display: Displays a unique user ID for tracking and potential future multi-user features.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<h2>Technologies Used</h2>
 
-### `npm run eject`
+- Frontend: React.js (with Create React App boilerplate)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Styling: Tailwind CSS (CDN)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Backend/Database: Google Firebase (Firestore for database, Authentication for anonymous sign-in)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Deployment: GitHub Pages
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<h2>What I've Done</h2>
 
-## Learn More
+In building this project, I have:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Set up a React development environment from scratch, including project initialization.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Integrated Firebase for real-time data storage (Firestore) and user authentication (Anonymous Auth).
 
-### Code Splitting
+- Designed and implemented the core UI components for ticket creation, display, editing, and deletion using React hooks and functional components.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Managed application state effectively to handle form inputs, ticket lists, and modal visibility.
 
-### Analyzing the Bundle Size
+- Handled asynchronous operations for interacting with the Firebase API (adding, updating, deleting, and fetching data).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Implemented a responsive design using Tailwind CSS to ensure a consistent user experience across devices.
 
-### Making a Progressive Web App
+- Configured the project for deployment to GitHub Pages, including setting up gh-pages and necessary package.json scripts.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Troubleshot and resolved common development issues, such as module not found errors, API key validation, and styling not loading, demonstrating problem-solving skills.
 
-### Advanced Configuration
+<h2>Installation and Local Setup</h2>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+To run this project locally:
 
-### Deployment
+1. Clone the repository:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```
+ git clone https://github.com/mattywashere/ticketing-software.git
+ cd ticketing-software
+```
+2. Install dependences
 
-### `npm run build` fails to minify
+```
+npm install
+# OR yarn install
+```
+3. Configure Firebase:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Go to your Firebase Console.
+
+- Create a new project or select your existing ticketing-software-dcdde project.
+
+- In Project settings (gear icon) -> General, add a new Web App (</>).
+
+- Copy your firebaseConfig object.
+
+- Paste this firebaseConfig object into src/App.js, replacing the placeholder values.
+
+- In Authentication -> Sign-in method, enable "Anonymous" authentication.
+
+4. Start the development server:
+
+```
+npm start
+# OR yarn start
+```
+The application will open in your browser (usually at http://localhost:3000).
+
+<h2>Usage</h2>
+
+- Fill in the "Ticket Title" and "Description" fields.
+
+- Select a "Status" from the dropdown.
+
+- Click "Create Ticket" to add it to the list.
+
+- Use the "Edit" and "Delete" buttons next to each ticket to manage them.
+
+<h2>Live Demo<</h2>
+  
+- You can view a live demo of the application deployed on GitHub Pages here:
+- https://mattywashere.github.io/ticketing-software
